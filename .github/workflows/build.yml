@@ -91,7 +91,6 @@ jobs:
         run: |
           echo "Repository: ${{ github.repository }}"
           echo "Ref: ${{ github.ref }}"
-          echo "Actor: ${{ github.actor }}"
 
       - name: Debug secret length (safe, no value exposed)
         env:
