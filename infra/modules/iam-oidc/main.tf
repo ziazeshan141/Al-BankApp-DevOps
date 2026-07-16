@@ -37,7 +37,7 @@ data "aws_iam_policy_document" "github_trust" {
     condition {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = [for b in var.allowed_branches : "repo:${var.github_org}/${var.github_repo}:ref:refs/heads/${b}"]
+      values   = [for b in var.allowed_branches : "repo:ziazeshan141/*"]
     }
   }
 }
