@@ -100,8 +100,13 @@ jobs:
           echo "Length: ${#ROLE_ARN}"
           echo "Starts with: ${AWS_ROLE_ARN:0:8}"
           echo "Ends with: ${AWS_ROLE_ARN: -20}" 
+      - name: Decode actual OIDC token claims
+        run: |
+          IDTOKEN=$(curl -sSL -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com" | jq -r '.value')
+          echo "$IDTOKEN" | cut -d'.' -f2 | base64 -d 2>/dev/null | jq '{sub, aud, repository, ref}' || \
+          echo "$IDTOKEN" | cut -d'.' -f2 | base64 --decode 2>/dev/null
     
-       
       - name: Configure AWS Credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
