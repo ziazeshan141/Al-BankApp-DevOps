@@ -11,6 +11,7 @@ module "ecr" {
   repository_name = "devsecops-bankapp"
 }
 
+
 module "ec2_app" {
   source = "../../modules/ec2-app"
 
